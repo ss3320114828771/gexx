@@ -45,7 +45,7 @@ export default function ProductsPage() {
       // Mock products data
       const mockProducts: Product[] = [
         {
-          id: '1',
+          id: "/n1.jpeg",
           name: 'Amethyst Crystal',
           price: 299,
           category: 'Crystals',
