@@ -74,19 +74,19 @@ const products: Record<string, Product> = {
   }
 }
 
-// Helper to check if user is admin (in real app, verify JWT)
+// Helper to check if user is admin
 function isAdmin(request: Request) {
   const authHeader = request.headers.get('authorization')
-  return authHeader === 'admin_token' // Demo purpose only
+  return authHeader === 'admin_token'
 }
 
-// GET /api/products/[id] - Get single product
+// ✅ FIXED: GET /api/products/[id]
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }  // ✅ Promise type
 ) {
   try {
-    const id = params.id
+    const { id } = await params  // ✅ Await karna zaroori
     const product = products[id]
 
     if (!product) {
@@ -109,10 +109,10 @@ export async function GET(
   }
 }
 
-// PUT /api/products/[id] - Update product (admin only)
+// ✅ FIXED: PUT /api/products/[id]
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }  // ✅ Promise type
 ) {
   try {
     // Check admin permission
@@ -123,10 +123,9 @@ export async function PUT(
       )
     }
 
-    const id = params.id
+    const { id } = await params  // ✅ Await karna zaroori
     const body = await request.json()
 
-    // Check if product exists
     if (!products[id]) {
       return NextResponse.json(
         { error: 'Product not found' },
@@ -134,15 +133,13 @@ export async function PUT(
       )
     }
 
-    // Update product
     const updatedProduct = {
       ...products[id],
       ...body,
-      id, // Ensure ID doesn't change
+      id,
       updatedAt: new Date().toISOString()
     }
 
-    // Save to mock database
     products[id] = updatedProduct
 
     return NextResponse.json({
@@ -159,13 +156,12 @@ export async function PUT(
   }
 }
 
-// PATCH /api/products/[id] - Partially update product (admin only)
+// ✅ FIXED: PATCH /api/products/[id]
 export async function PATCH(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }  // ✅ Promise type
 ) {
   try {
-    // Check admin permission
     if (!isAdmin(request)) {
       return NextResponse.json(
         { error: 'Unauthorized - Admin only' },
@@ -173,10 +169,9 @@ export async function PATCH(
       )
     }
 
-    const id = params.id
+    const { id } = await params  // ✅ Await karna zaroori
     const body = await request.json()
 
-    // Check if product exists
     if (!products[id]) {
       return NextResponse.json(
         { error: 'Product not found' },
@@ -184,15 +179,13 @@ export async function PATCH(
       )
     }
 
-    // Update only provided fields
     const updatedProduct = {
       ...products[id],
       ...body,
-      id, // Ensure ID doesn't change
+      id,
       updatedAt: new Date().toISOString()
     }
 
-    // Save to mock database
     products[id] = updatedProduct
 
     return NextResponse.json({
@@ -209,13 +202,12 @@ export async function PATCH(
   }
 }
 
-// DELETE /api/products/[id] - Delete product (admin only)
+// ✅ FIXED: DELETE /api/products/[id]
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }  // ✅ Promise type
 ) {
   try {
-    // Check admin permission
     if (!isAdmin(request)) {
       return NextResponse.json(
         { error: 'Unauthorized - Admin only' },
@@ -223,9 +215,8 @@ export async function DELETE(
       )
     }
 
-    const id = params.id
+    const { id } = await params  // ✅ Await karna zaroori
 
-    // Check if product exists
     if (!products[id]) {
       return NextResponse.json(
         { error: 'Product not found' },
@@ -233,7 +224,6 @@ export async function DELETE(
       )
     }
 
-    // Delete product (in real app, you might want soft delete)
     delete products[id]
 
     return NextResponse.json({
