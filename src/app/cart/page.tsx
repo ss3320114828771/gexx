@@ -32,7 +32,7 @@ export default function CartPage() {
       // const res = await fetch('/api/cart')
       // const data = await res.json()
       
-      // Mock data for demo
+      // Mock data for demo - FIXED: Added proper image paths
       setTimeout(() => {
         setCartItems([
           {
@@ -41,7 +41,7 @@ export default function CartPage() {
             name: 'Amethyst Crystal',
             price: 299,
             quantity: 1,
-            image: 'n1'
+            image: '/n1.jpeg' // FIXED: Added slash and extension
           },
           {
             id: '2',
@@ -49,7 +49,7 @@ export default function CartPage() {
             name: 'Ruby Rough',
             price: 499,
             quantity: 2,
-            image: 'n2'
+            image: '/n2.jpeg' // FIXED: Added slash and extension
           }
         ])
         setLoading(false)
@@ -178,8 +178,20 @@ export default function CartPage() {
                   className="bg-white/5 backdrop-blur-lg rounded-xl p-4 border border-purple-500 hover:border-pink-500 transition-all"
                 >
                   <div className="flex gap-4">
-                    {/* Product Image */}
-                    <div className="w-24 h-24 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex-shrink-0"></div>
+                    {/* Product Image - FIXED: Added actual image */}
+                    <div className="w-24 h-24 rounded-lg overflow-hidden bg-gradient-to-r from-purple-500 to-pink-500 flex-shrink-0">
+                      {item.image && (
+                        <img 
+                          src={item.image}
+                          alt={item.name}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            // Fallback if image doesn't load
+                            e.currentTarget.style.display = 'none';
+                          }}
+                        />
+                      )}
+                    </div>
                     
                     {/* Product Details */}
                     <div className="flex-1">
@@ -195,7 +207,7 @@ export default function CartPage() {
                         <button
                           onClick={() => updateQuantity(item.id, item.quantity - 1)}
                           disabled={updating || item.quantity <= 1}
-                          className="w-8 h-8 rounded-full bg-purple-600 text-white hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                          className="w-8 h-8 rounded-full bg-purple-600 text-white hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
                         >
                           -
                         </button>
@@ -205,7 +217,7 @@ export default function CartPage() {
                         <button
                           onClick={() => updateQuantity(item.id, item.quantity + 1)}
                           disabled={updating}
-                          className="w-8 h-8 rounded-full bg-purple-600 text-white hover:bg-purple-700"
+                          className="w-8 h-8 rounded-full bg-purple-600 text-white hover:bg-purple-700 flex items-center justify-center"
                         >
                           +
                         </button>
