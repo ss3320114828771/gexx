@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import Navbar from '@/components/ui/navbar'
 import Footer from '@/components/ui/footer'
+import Image from 'next/image' // Add this import
 
 export default function AboutPage() {
   return (
@@ -60,13 +61,24 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* Founder Section */}
+        {/* Founder Section - ADDED YOUR PICTURE */}
         <div className="bg-gradient-to-r from-purple-900/50 to-pink-900/50 rounded-2xl p-8 border-2 border-purple-500 mb-16">
           <div className="flex flex-col md:flex-row items-center gap-8">
-            <div className="w-48 h-48 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
-              <span className="text-6xl">👤</span>
+            {/* Image Container - FIXED: Added your actual image */}
+            <div className="w-48 h-48 rounded-full overflow-hidden border-4 border-pink-500 shadow-xl">
+              <img 
+                src="/sajid.jpeg"
+                alt="Hafiz Sajid Syed - Founder"
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  // Fallback if image doesn't load
+                  e.currentTarget.style.display = 'none';
+                  e.currentTarget.parentElement!.style.background = 'linear-gradient(to right, #a855f7, #ec4899)';
+                  e.currentTarget.parentElement!.innerHTML = '<span class="text-6xl">👤</span>';
+                }}
+              />
             </div>
-            <div>
+            <div className="flex-1">
               <h2 className="text-3xl font-bold text-gradient mb-2">Hafiz Sajid Syed</h2>
               <p className="text-pink-400 mb-4">Founder & Chief Gemologist</p>
               <p className="text-purple-300 leading-relaxed">

@@ -99,9 +99,20 @@ export default function FeaturedProducts({
                     )}
                   </div>
 
-                  {/* Image */}
-                  <div className="relative aspect-square mb-4 overflow-hidden rounded-lg">
-                    <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 opacity-75 group-hover:opacity-90 transition-opacity"></div>
+                  {/* Image - FIXED: Added actual image */}
+                  <div className="relative aspect-square mb-4 overflow-hidden rounded-lg bg-gradient-to-r from-purple-500 to-pink-500">
+                    {/* Actual Image */}
+                    {product.image && (
+                      <img 
+                        src={product.image}
+                        alt={product.name}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        onError={(e) => {
+                          // Fallback if image doesn't load
+                          e.currentTarget.style.display = 'none';
+                        }}
+                      />
+                    )}
                     
                     {/* Hover Overlay */}
                     <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
@@ -112,7 +123,7 @@ export default function FeaturedProducts({
 
                     {/* Quick View Button (appears on hover) */}
                     <button 
-                      className="absolute top-2 right-2 w-8 h-8 bg-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"
+                      className="absolute top-2 right-2 w-8 h-8 bg-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-20"
                       onClick={(e) => {
                         e.preventDefault()
                         // Quick view functionality
@@ -198,7 +209,7 @@ export default function FeaturedProducts({
     )
   }
 
-  // Carousel Layout
+  // Carousel Layout - FIXED: Added images here too
   return (
     <section className="py-16">
       <div className="container mx-auto px-4">
@@ -218,7 +229,19 @@ export default function FeaturedProducts({
                 className="group w-64"
               >
                 <div className="bg-white/5 backdrop-blur-lg rounded-xl border border-purple-500 p-3 hover:border-pink-500 transition-all">
-                  <div className="aspect-square bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg mb-2"></div>
+                  {/* FIXED: Added image for carousel */}
+                  <div className="aspect-square rounded-lg mb-2 overflow-hidden bg-gradient-to-r from-purple-500 to-pink-500">
+                    {product.image && (
+                      <img 
+                        src={product.image}
+                        alt={product.name}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          e.currentTarget.style.display = 'none';
+                        }}
+                      />
+                    )}
+                  </div>
                   <h3 className="font-semibold text-white group-hover:text-pink-400">{product.name}</h3>
                   <p className="text-pink-400 font-bold mt-1">${product.price}</p>
                 </div>
@@ -231,7 +254,7 @@ export default function FeaturedProducts({
   )
 }
 
-// Default products data
+// Default products data - CORRECT image paths
 const defaultProducts: Product[] = [
   {
     id: '1',
@@ -296,9 +319,9 @@ const defaultProducts: Product[] = [
 // Simple version
 export function SimpleFeaturedProducts() {
   const products = [
-    { id: '1', name: 'Amethyst', price: 299 },
-    { id: '2', name: 'Ruby', price: 499 },
-    { id: '3', name: 'Sapphire', price: 899 },
+    { id: '1', name: 'Amethyst', price: 299, image: "/n1.jpeg" },
+    { id: '2', name: 'Ruby', price: 499, image: "/n2.jpeg" },
+    { id: '3', name: 'Sapphire', price: 899, image: "/n3.jpeg" },
   ]
 
   return (
@@ -308,7 +331,16 @@ export function SimpleFeaturedProducts() {
         {products.map(p => (
           <Link key={p.id} href={`/products/${p.id}`}>
             <div className="border rounded p-3 hover:shadow-lg">
-              <div className="h-32 bg-gray-200 mb-2"></div>
+              {/* FIXED: Added image for simple version */}
+              <div className="h-32 bg-gradient-to-r from-purple-500 to-pink-500 rounded mb-2 overflow-hidden">
+                {p.image && (
+                  <img 
+                    src={p.image}
+                    alt={p.name}
+                    className="w-full h-full object-cover"
+                  />
+                )}
+              </div>
               <h3 className="font-medium">{p.name}</h3>
               <p className="text-pink-600 font-bold">${p.price}</p>
             </div>

@@ -42,10 +42,10 @@ export default function ProductsPage() {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000))
       
-      // Mock products data
+      // Mock products data - FIXED: All image paths corrected
       const mockProducts: Product[] = [
         {
-          id: "/n1.jpeg",
+          id: "1", // FIXED: Changed from "/n1.jpeg" to "1"
           name: 'Amethyst Crystal',
           price: 299,
           category: 'Crystals',
@@ -123,7 +123,7 @@ export default function ProductsPage() {
           origin: 'Brazil',
           stock: 12,
           featured: false,
-          images: ['n6', 'n1', 'n2'],
+          images: ["/n6.jpeg", "/n1.jpeg", "/n2.jpeg"], // FIXED
           createdAt: '2024-02-10',
           orders: 31,
           revenue: 6169
@@ -137,7 +137,7 @@ export default function ProductsPage() {
           origin: 'Afghanistan',
           stock: 0,
           featured: false,
-          images: ['n1', 'n3', 'n5'],
+          images: ["/n1.jpeg", "/n3.jpeg", "/n5.jpeg"], // FIXED
           createdAt: '2024-02-12',
           orders: 18,
           revenue: 2862
@@ -151,7 +151,7 @@ export default function ProductsPage() {
           origin: 'South Africa',
           stock: 22,
           featured: false,
-          images: ['n2', 'n4', 'n6'],
+          images: ["/n2.jpeg", "/n4.jpeg", "/n6.jpeg"], // FIXED
           createdAt: '2024-02-15',
           orders: 42,
           revenue: 3318
@@ -400,7 +400,7 @@ export default function ProductsPage() {
         </div>
       )}
 
-      {/* Products Table */}
+      {/* Products Table - FIXED: Added image tag */}
       <div className="bg-white/5 backdrop-blur-lg rounded-xl border border-purple-500 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
@@ -440,7 +440,19 @@ export default function ProductsPage() {
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-gradient-animated rounded-lg"></div>
+                        {/* FIXED: Added actual image */}
+                        <div className="w-10 h-10 rounded-lg overflow-hidden bg-gradient-to-r from-purple-500 to-pink-500">
+                          {product.images && product.images[0] && (
+                            <img 
+                              src={product.images[0]} 
+                              alt={product.name}
+                              className="w-full h-full object-cover"
+                              onError={(e) => {
+                                e.currentTarget.style.display = 'none';
+                              }}
+                            />
+                          )}
+                        </div>
                         <div>
                           <Link href={`/dashboard/products/${product.id}`} className="font-semibold text-white hover:text-pink-400 transition-colors">
                             {product.name}
