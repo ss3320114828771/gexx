@@ -29,7 +29,7 @@ export default function ProductsPage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [priceRange, setPriceRange] = useState({ min: 0, max: 2000 })
 
-  // Mock products data
+  // Mock products data - FIXED: All image paths corrected
   useEffect(() => {
     const timer = setTimeout(() => {
       setProducts([
@@ -43,7 +43,7 @@ export default function ProductsPage() {
           origin: 'Brazil',
           stock: 15,
           featured: true,
-          images: ['n1', 'n2', 'n3']
+          images: ['/n1.jpeg', '/n2.jpeg', '/n3.jpeg'] // FIXED
         },
         {
           id: '2',
@@ -55,7 +55,7 @@ export default function ProductsPage() {
           origin: 'Myanmar',
           stock: 8,
           featured: true,
-          images: ['n2', 'n3', 'n4']
+          images: ['/n2.jpeg', '/n3.jpeg', '/n4.jpeg'] // FIXED
         },
         {
           id: '3',
@@ -67,7 +67,7 @@ export default function ProductsPage() {
           origin: 'Sri Lanka',
           stock: 5,
           featured: true,
-          images: ['n3', 'n4', 'n5']
+          images: ['/n3.jpeg', '/n4.jpeg', '/n5.jpeg'] // FIXED
         },
         {
           id: '4',
@@ -79,7 +79,7 @@ export default function ProductsPage() {
           origin: 'Colombia',
           stock: 3,
           featured: true,
-          images: ['n4', 'n5', 'n6']
+          images: ['/n4.jpeg', '/n5.jpeg', '/n6.jpeg'] // FIXED
         },
         {
           id: '5',
@@ -91,7 +91,7 @@ export default function ProductsPage() {
           origin: 'Madagascar',
           stock: 45,
           featured: false,
-          images: ['n5', 'n6', 'n1']
+          images: ['/n5.jpeg', '/n6.jpeg', '/n1.jpeg'] // FIXED
         },
         {
           id: '6',
@@ -103,7 +103,7 @@ export default function ProductsPage() {
           origin: 'Brazil',
           stock: 12,
           featured: false,
-          images: ['n6', 'n1', 'n2']
+          images: ['/n6.jpeg', '/n1.jpeg', '/n2.jpeg'] // FIXED
         },
         {
           id: '7',
@@ -115,7 +115,7 @@ export default function ProductsPage() {
           origin: 'Afghanistan',
           stock: 7,
           featured: false,
-          images: ['n1', 'n3', 'n5']
+          images: ['/n1.jpeg', '/n3.jpeg', '/n5.jpeg'] // FIXED
         },
         {
           id: '8',
@@ -127,7 +127,7 @@ export default function ProductsPage() {
           origin: 'South Africa',
           stock: 22,
           featured: false,
-          images: ['n2', 'n4', 'n6']
+          images: ['/n2.jpeg', '/n4.jpeg', '/n6.jpeg'] // FIXED
         },
         {
           id: '9',
@@ -139,7 +139,7 @@ export default function ProductsPage() {
           origin: 'Myanmar',
           stock: 6,
           featured: true,
-          images: ['n3', 'n5', 'n1']
+          images: ['/n3.jpeg', '/n5.jpeg', '/n1.jpeg'] // FIXED
         }
       ])
       setLoading(false)
@@ -368,7 +368,7 @@ export default function ProductsPage() {
           Showing {filteredProducts.length} of {products.length} products
         </p>
 
-        {/* Products Grid */}
+        {/* Products Grid - FIXED: Added actual images */}
         {filteredProducts.length === 0 ? (
           <div className="text-center py-16 bg-white/5 backdrop-blur-lg rounded-xl border border-purple-500">
             <div className="text-6xl mb-4">😕</div>
@@ -381,9 +381,22 @@ export default function ProductsPage() {
               <Link key={product.id} href={`/products/${product.id}`}>
                 <div className="group bg-white/5 backdrop-blur-lg rounded-xl border border-purple-500 p-4 hover:border-pink-500 transition-all hover:scale-105 cursor-pointer">
                   <div className="relative">
-                    <div className="aspect-square bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg mb-3"></div>
+                    {/* FIXED: Added actual image */}
+                    <div className="aspect-square rounded-lg mb-3 overflow-hidden bg-gradient-to-r from-purple-500 to-pink-500">
+                      {product.images && product.images[0] && (
+                        <img 
+                          src={product.images[0]}
+                          alt={product.name}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                          onError={(e) => {
+                            // Fallback if image doesn't load
+                            e.currentTarget.style.display = 'none';
+                          }}
+                        />
+                      )}
+                    </div>
                     {product.featured && (
-                      <span className="absolute top-2 right-2 px-2 py-1 bg-pink-600 text-white text-xs rounded-full">
+                      <span className="absolute top-2 right-2 px-2 py-1 bg-pink-600 text-white text-xs rounded-full z-10">
                         Featured
                       </span>
                     )}
