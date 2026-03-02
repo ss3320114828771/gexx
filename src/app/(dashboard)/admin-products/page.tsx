@@ -53,7 +53,7 @@ export default function ProductsPage() {
           origin: 'Brazil',
           stock: 15,
           featured: true,
-          images: ['n1', 'n2', 'n3'],
+          images: ["/n1.jpeg", "/n2.jpeg", "/n3.jpeg"],
           createdAt: '2024-01-15',
           orders: 23,
           revenue: 6877
@@ -67,7 +67,7 @@ export default function ProductsPage() {
           origin: 'Myanmar',
           stock: 8,
           featured: true,
-          images: ['n2', 'n3', 'n4'],
+          images: ["/n2.jpeg", "/n3.jpeg", "/n4.jpeg"],
           createdAt: '2024-01-20',
           orders: 12,
           revenue: 5988
@@ -81,7 +81,7 @@ export default function ProductsPage() {
           origin: 'Sri Lanka',
           stock: 5,
           featured: false,
-          images: ['n3', 'n4', 'n5'],
+          images: ["/n3.jpeg", "/n4.jpeg", "/n5.jpeg"],
           createdAt: '2024-01-25',
           orders: 8,
           revenue: 7192
@@ -95,7 +95,7 @@ export default function ProductsPage() {
           origin: 'Colombia',
           stock: 3,
           featured: true,
-          images: ['n4', 'n5', 'n6'],
+          images: ["/n4.jpeg", "/n5.jpeg", "/n6.jpeg"],
           createdAt: '2024-02-01',
           orders: 5,
           revenue: 6495
@@ -109,7 +109,7 @@ export default function ProductsPage() {
           origin: 'Madagascar',
           stock: 45,
           featured: false,
-          images: ['n5', 'n6', 'n1'],
+          images: ["/n5.jpeg", "/n6.jpeg", "/n1.jpeg"],
           createdAt: '2024-02-05',
           orders: 67,
           revenue: 6633

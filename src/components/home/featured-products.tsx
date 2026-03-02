@@ -241,7 +241,7 @@ const defaultProducts: Product[] = [
     rating: 4.8,
     reviews: 124,
     isNew: true,
-    image: 'n1'
+    image: "/n1.jpeg"
   },
   {
     id: '2',
@@ -250,7 +250,7 @@ const defaultProducts: Product[] = [
     category: 'Rough Stones',
     rating: 4.9,
     reviews: 89,
-    image: 'n2'
+    image: "/n2.jpeg"
   },
   {
     id: '3',
@@ -260,7 +260,7 @@ const defaultProducts: Product[] = [
     rating: 5.0,
     reviews: 56,
     discount: 10,
-    image: 'n3'
+    image: "/n3.jpeg"
   },
   {
     id: '4',
@@ -270,7 +270,7 @@ const defaultProducts: Product[] = [
     rating: 4.7,
     reviews: 42,
     isNew: true,
-    image: 'n4'
+    image: "/n4.jpeg"
   },
   {
     id: '5',
@@ -279,7 +279,7 @@ const defaultProducts: Product[] = [
     category: 'Tumbled Stones',
     rating: 4.6,
     reviews: 215,
-    image: 'n5'
+    image: "/n5.jpeg"
   },
   {
     id: '6',
@@ -289,7 +289,7 @@ const defaultProducts: Product[] = [
     rating: 4.5,
     reviews: 78,
     discount: 15,
-    image: 'n6'
+    image: "/n6.jpeg"
   }
 ]
 
